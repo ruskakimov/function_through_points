@@ -14,32 +14,60 @@ class MyApp extends StatelessWidget {
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            DataTable(
-              columns: [
-                DataColumn(label: Text('x')),
-                DataColumn(label: Text('y')),
-                DataColumn(label: Text('Your y')),
-              ],
-              rows: [
-                DataRow(cells: [
-                  DataCell(Text('1')),
-                  DataCell(Text('1')),
-                  DataCell(Text('-')),
-                ]),
-                DataRow(cells: [
-                  DataCell(Text('2')),
-                  DataCell(Text('4')),
-                  DataCell(Text('-')),
-                ]),
-                DataRow(cells: [
-                  DataCell(Text('3')),
-                  DataCell(Text('8')),
-                  DataCell(Text('-')),
-                ]),
-              ],
-            )
+            Expanded(child: PointsTable()),
+            FunctionField(),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class PointsTable extends StatelessWidget {
+  const PointsTable({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      child: DataTable(
+        columns: [
+          DataColumn(label: Text('x')),
+          DataColumn(label: Text('y')),
+          DataColumn(label: Text('Your y')),
+        ],
+        rows: List.generate(
+          20,
+          (i) => DataRow(cells: [
+            DataCell(Text('$i')),
+            DataCell(Text('${i * i}')),
+            DataCell(Text('-')),
+          ]),
+        ),
+      ),
+    );
+  }
+}
+
+class FunctionField extends StatelessWidget {
+  const FunctionField({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Row(
+        children: [
+          Text('y = '),
+          Expanded(
+            child: TextField(
+              decoration: InputDecoration(border: OutlineInputBorder()),
+            ),
+          ),
+        ],
       ),
     );
   }
