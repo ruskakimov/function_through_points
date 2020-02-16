@@ -8,42 +8,39 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Graphing playground',
       home: Scaffold(
-        body: Center(
-          child: Container(
-            decoration: BoxDecoration(border: Border.all(color: Colors.black)),
-            child: CustomPaint(
-              painter: MyPainter(),
-              size: Size(300, 300),
-            ),
-          ),
+        appBar: AppBar(
+          title: Text('Function of points'),
+        ),
+        body: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            DataTable(
+              columns: [
+                DataColumn(label: Text('x')),
+                DataColumn(label: Text('y')),
+                DataColumn(label: Text('Your y')),
+              ],
+              rows: [
+                DataRow(cells: [
+                  DataCell(Text('1')),
+                  DataCell(Text('1')),
+                  DataCell(Text('-')),
+                ]),
+                DataRow(cells: [
+                  DataCell(Text('2')),
+                  DataCell(Text('4')),
+                  DataCell(Text('-')),
+                ]),
+                DataRow(cells: [
+                  DataCell(Text('3')),
+                  DataCell(Text('8')),
+                  DataCell(Text('-')),
+                ]),
+              ],
+            )
+          ],
         ),
       ),
     );
   }
-}
-
-class MyPainter extends CustomPainter {
-  @override
-  void paint(Canvas canvas, Size size) {
-    final paint = Paint();
-    paint.style = PaintingStyle.stroke;
-    paint.strokeWidth = 1;
-
-    // vertical axis
-    canvas.drawLine(
-      Offset(size.width / 2, 0),
-      Offset(size.width / 2, size.height),
-      paint,
-    );
-
-    // horizontal axis
-    canvas.drawLine(
-      Offset(0, size.height / 2),
-      Offset(size.width, size.height / 2),
-      paint,
-    );
-  }
-
-  @override
-  bool shouldRepaint(CustomPainter oldDelegate) => true;
 }
